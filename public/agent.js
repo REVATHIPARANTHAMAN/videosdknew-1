@@ -66,10 +66,7 @@ screenshotButton.addEventListener('click', () => {
   }
 });
 
-  
-  
 
-});
 
 function getFormattedTimestamp() {
   const now = new Date();
