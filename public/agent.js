@@ -27,7 +27,7 @@ screenshotButton.addEventListener('click', () => {
       try {
           // Open the Save File Picker
           const fileHandle = await window.showSaveFilePicker({
-               startIn: 'pictures',
+               //startIn: 'pictures',
                suggestedName: `customNodeScreenshot-${getFormattedTimestamp()}.png`,
               types: [{
                   description: 'PNG Image',
