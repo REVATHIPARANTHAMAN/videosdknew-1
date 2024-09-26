@@ -21,7 +21,12 @@ screenshotButton.addEventListener('click', () => {
     const dataURL = canvas.toDataURL('image/png');
     console.log("screenshotDone");
     console.log(dataURL);
-    window.parent.postMessage('openFilePicker', '*');
+    const a = document.createElement('a');
+  a.href = dataURL;
+  a.download = `screenshot-${getFormattedTimestamp()}.png`; // File name for download
+  document.body.appendChild(a);
+  a.click();
+  /* window.parent.postMessage('openFilePicker', '*');
  window.addEventListener('message', async (event) => {
   if (event.data === 'openFilePicker') {
       try {
@@ -42,7 +47,7 @@ screenshotButton.addEventListener('click', () => {
           
           // Assuming you have a Blob of the screenshot in the iframe
           // (for simplicity, we'll assume this message contains the Blob data)
-          const screenshotBlob = new Blob([/* Your screenshot data */], { type: 'image/png' });
+          const screenshotBlob = new Blob([/* Your screenshot data *//*], { type: 'image/png' });
 
           // Write the Blob to the file
           await writableStream.write(screenshotBlob);
@@ -55,7 +60,7 @@ screenshotButton.addEventListener('click', () => {
   }
 
 
-});
+});*/
 
 function getFormattedTimestamp() {
   const now = new Date();
