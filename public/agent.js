@@ -23,7 +23,7 @@ screenshotButton.addEventListener('click', () => {
     console.log(dataURL);
     const a = document.createElement('a');
   a.href = dataURL;
-  a.download = `screenshot-${getFormattedTimestamp()}.png`; // File name for download
+  a.download = `customNodeScreenshot-${getFormattedTimestamp()}.png`; // File name for download
   document.body.appendChild(a);
   a.click();
   /* window.parent.postMessage('openFilePicker', '*');
