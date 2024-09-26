@@ -4,42 +4,9 @@ import * as store from "./store.js"
 import * as ui from "./uiInteract.js"
 webRTCHandler.getLocalPreview();
 
-const getBrowserName = (userAgent) => {
-  if (userAgent.includes("firefox")) {
-      return "Mozilla Firefox";
-  } else if (userAgent.includes("SamsungBrowser")) {
-      return "Samsung Internet";
-  } else if (userAgent.includes("Opera") || userAgent.includes("OPR")) {
-      return "Opera";
-  } else if (userAgent.includes("Trident")) {
-      return "Microsoft Internet Explorer";
-  } else if (userAgent.includes("Edge") || userAgent.includes("Edg")) {
-      return "Microsoft Edge";
-  } else if (userAgent.includes("Chrome")) {
-      return "Google Chrome";
-  } else if (userAgent.includes("Safari")) {
-      return "Safari";
-  } else {
-      return "Unknown browser";
-  }
-};
-
-// Example user-agent string from an incoming HTTP request
-const req = {
-  headers: {
-      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
-  }
-};
-
-const browserName = getBrowserName(req.headers['user-agent']);
-
-console.log('Browser Name:', browserName);
-
-
-
 const screenshotButton = document.getElementById("screenshot_button_image");
 screenshotButton.addEventListener('click', () => {
-  const video = document.getElementById('local_video');
+  const video = document.getElementById('remote_video');
     const canvas = document.getElementById('screenshotCanvas');
     const img = document.getElementById('screenshot_button_image');
     const downloadButton = document.getElementById('downloadButton');
@@ -56,36 +23,51 @@ screenshotButton.addEventListener('click', () => {
     console.log("screenshotDone");
     console.log(dataURL);
    // img.src = dataURL;
-   
-      
-  // to save the captured screenshot in  pictures folder
+      // Listen for the message from the iframe
 
-  savingscreenshot();
-  async function savingscreenshot() {
-    try {
-      console.log("savingscreenshot1");
-        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        console.log("savingscreenshot2");
-        // Request the user to choose a directory to save the image
-        const fileHandle = await window.showSaveFilePicker({
-           startIn: 'pictures',
-           // suggestedName: `customNodeApplicationScreenshot-${Date.now()}.png`,
-           suggestedName: `customNodeScreenshot-${getFormattedTimestamp()}.png`,
-            types: [{
-                description: 'PNG Image',
-                accept: { 'image/png': ['.png'] },
-            }],
-        });    
-        console.log("savingscreenshot3");
-        const writableStream = await fileHandle.createWritable();
-        await writableStream.write(blob);
-        await writableStream.close();
-  
-        console.log('Screenshot saved successfully!');
-    } catch (error) {
-        console.error('Error saving the file:', error);
-    }
+    // Set the download functionality
+
+  //const a = document.createElement('a');
+ // a.href = dataURL;
+ // a.download = `customscreenshot-${getFormattedTimestamp()}.png`; // File name for download
+ // document.body.appendChild(a);
+ // a.click();
+ window.parent.postMessage('openFilePicker', '*');
+ window.addEventListener('message', async (event) => {
+  if (event.data === 'openFilePicker') {
+      try {
+          // Open the Save File Picker
+          const fileHandle = await window.showSaveFilePicker({
+               startIn: 'pictures',
+               suggestedName: `customNodeScreenshot-${getFormattedTimestamp()}.png`,
+              types: [{
+                  description: 'PNG Image',
+                  accept: {
+                      'image/png': ['.png'],
+                  },
+              }],
+          });
+
+          // Write to the file using the file handle
+          const writableStream = await fileHandle.createWritable();
+          
+          // Assuming you have a Blob of the screenshot in the iframe
+          // (for simplicity, we'll assume this message contains the Blob data)
+          const screenshotBlob = new Blob([/* Your screenshot data */], { type: 'image/png' });
+
+          // Write the Blob to the file
+          await writableStream.write(screenshotBlob);
+          await writableStream.close();
+
+          console.log('File saved successfully!');
+      } catch (error) {
+          console.error('Error opening the file picker', error);
+      }
   }
+});
+
+  
+  
 
 });
 
