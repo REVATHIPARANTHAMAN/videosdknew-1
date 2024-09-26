@@ -3,36 +3,25 @@ import * as socketCon from "./wssAgent.js";
 import * as store from "./store.js"
 import * as ui from "./uiInteract.js"
 webRTCHandler.getLocalPreview();
-
 const screenshotButton = document.getElementById("screenshot_button_image");
 screenshotButton.addEventListener('click', () => {
   const video = document.getElementById('remote_video');
     const canvas = document.getElementById('screenshotCanvas');
     const img = document.getElementById('screenshot_button_image');
     const downloadButton = document.getElementById('downloadButton');
-// Set the canvas size to the video size
+
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     console.log("Set the canvas size to the video size");
-     // Draw the current video frame onto the canvas
+   
      const context = canvas.getContext('2d');
      context.drawImage(video, 0, 0, canvas.width, canvas.height);
      console.log("Draw the current video frame onto the canvas");
-    // Convert the canvas image to a data URL and set it as the src of the img tag
+  
     const dataURL = canvas.toDataURL('image/png');
     console.log("screenshotDone");
     console.log(dataURL);
-   // img.src = dataURL;
-      // Listen for the message from the iframe
-
-    // Set the download functionality
-
-  //const a = document.createElement('a');
- // a.href = dataURL;
- // a.download = `customscreenshot-${getFormattedTimestamp()}.png`; // File name for download
- // document.body.appendChild(a);
- // a.click();
- window.parent.postMessage('openFilePicker', '*');
+    window.parent.postMessage('openFilePicker', '*');
  window.addEventListener('message', async (event) => {
   if (event.data === 'openFilePicker') {
       try {
@@ -64,9 +53,9 @@ screenshotButton.addEventListener('click', () => {
           console.error('Error opening the file picker', error);
       }
   }
+
+
 });
-
-
 
 function getFormattedTimestamp() {
   const now = new Date();
@@ -81,12 +70,7 @@ function getFormattedTimestamp() {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
 }
-
-
-
-
-
-
+});
 const micButton = document.getElementById("mic_button");
 micButton.addEventListener("click", () => {
   const localStream = store.getState().localStream;
