@@ -3,79 +3,7 @@ import * as socketCon from "./wssAgent.js";
 import * as store from "./store.js"
 import * as ui from "./uiInteract.js"
 webRTCHandler.getLocalPreview();
-const screenshotButton = document.getElementById("screenshot_button_image");
-screenshotButton.addEventListener('click', () => {
-  const video = document.getElementById('remote_video');
-    const canvas = document.getElementById('screenshotCanvas');
-    const img = document.getElementById('screenshot_button_image');
-    const downloadButton = document.getElementById('downloadButton');
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    console.log("Set the canvas size to the video size");
-   
-     const context = canvas.getContext('2d');
-     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-     console.log("Draw the current video frame onto the canvas");
-  
-    const dataURL = canvas.toDataURL('image/png');
-    console.log("screenshotDone");
-    console.log(dataURL);
-    const a = document.createElement('a');
-  a.href = dataURL;
-  a.download = `customNodeScreenshot-${getFormattedTimestamp()}.png`; // File name for download
-  document.body.appendChild(a);
-  a.click();
-  /* window.parent.postMessage('openFilePicker', '*');
- window.addEventListener('message', async (event) => {
-  if (event.data === 'openFilePicker') {
-      try {
-          // Open the Save File Picker
-          const fileHandle = await window.showSaveFilePicker({
-               //startIn: 'pictures',
-               suggestedName: `customNodeScreenshot-${getFormattedTimestamp()}.png`,
-              types: [{
-                  description: 'PNG Image',
-                  accept: {
-                      'image/png': ['.png'],
-                  },
-              }],
-          });
-
-          // Write to the file using the file handle
-          const writableStream = await fileHandle.createWritable();
-          
-          // Assuming you have a Blob of the screenshot in the iframe
-          // (for simplicity, we'll assume this message contains the Blob data)
-          const screenshotBlob = new Blob([/* Your screenshot data *//*], { type: 'image/png' });
-
-          // Write the Blob to the file
-          await writableStream.write(screenshotBlob);
-          await writableStream.close();
-
-          console.log('File saved successfully!');
-      } catch (error) {
-          console.error('Error opening the file picker', error);
-      }
-  }
-
-
-});*/
-
-function getFormattedTimestamp() {
-  const now = new Date();
-
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-  const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
-
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
-}
-});
 const micButton = document.getElementById("mic_button");
 micButton.addEventListener("click", () => {
   const localStream = store.getState().localStream;

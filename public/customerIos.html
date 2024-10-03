@@ -15,19 +15,14 @@
     <div class='main_container'>
         <div class='call_container'>
             <div class='videos_container'>
-			 <!----<div id="status_bar" style="display: block !important;color: whitesmoke;display: none;justify-content: center;align-items: center;padding: 0.5rem;width: 100%;font-size: small;background: blueviolet;"> Camera_Status:<span id="Camera_Status">#####</span></div>-->
-             <div id="status_bar" style="display: none;color: whitesmoke;display: none;justify-content: center;align-items: center;padding: 0.5rem;width: 100%;font-size: small;background: blueviolet;"> Camera_Status:<span id="Camera_Status">#####</span></div>  
-             <div
+                <div
                     style="position: absolute;color: aliceblue;padding: 1rem;bottom: 0rem;right: 0rem;font-size: small;">
                     Status: <span id="status">#####</span></div>
-					<!----<div
-                    style="position: absolute;color: aliceblue;padding: 1rem;bottom: 0rem;right: 0rem;font-size: small;">
-                    Camera_Status: <span id="Camera_Status">#####</span></div>----> <!----to display camera status inline-->
                 <div style="color: aliceblue;padding: 1rem;position: absolute;">
                     <span id="connected_user">#####</span>
                 </div>
                 <video class='remote_video' autoplay playsinline id='remote_video'></video>
-                <div class='local_video_container'>
+                <div class='local_video_containerIOS'>
                     <video class='local_video' id='local_video' muted autoplay playsinline></video>
                 </div>
             </div>
@@ -58,7 +53,7 @@
                 <img src='/images/camera.png' id='camera_button_image'></img>
             </button> -->
             <button class='call_button_large' id='hang_up_button' disabled>
-                <img src='/images/hangUp.png'></img>
+                <img class ='hang_up_button_ios' src='/images/hangUp.png'></img>
             </button>
             <!-- <button class="call_button_small" id="screen_sharing_button">
                 <img src="/images/switchCameraScreenSharing.png">
