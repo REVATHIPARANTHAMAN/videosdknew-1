@@ -206,6 +206,9 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("pre-offer-answer", data);
     }
   });
+  socket.on("userHangUp", () => {
+    console.log("user hang up message received to  server");
+ });
 
   socket.on("pre-offer-answer", (data) => {
     const { callerSocketId } = data;

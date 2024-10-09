@@ -63,18 +63,22 @@ export const showInfoDialog = (preOfferAnswer) => {
   if (preOfferAnswer === constants.preOfferAnswer.CALLEE_NOT_FOUND) {
     getFormattedTimestamp();
     console.log("CallIdNotFound callback timestamp" + getFormattedTimestamp());
+    close_camera();
     callNFI("CallIdNotFound");
+   
   }
 
   if (preOfferAnswer === constants.preOfferAnswer.CALL_UNAVAILABLE) {
     getFormattedTimestamp();
     console.log("AgentBusy callback timestamp" + getFormattedTimestamp());
+    close_camera();
     callNFI("AgentBusy");
   }
 
   if (preOfferAnswer === constants.preOfferAnswer.CALL_NOT_ANSWERED) {
     getFormattedTimestamp();
     console.log("CallNotAnswered callback timestamp" + getFormattedTimestamp());
+    close_camera();
     callNFI("CallNotAnswered");
   }
 };
@@ -221,3 +225,15 @@ function getFormattedTimestamp() {
 }
 
 console.log("getFormattedTimestamp" +getFormattedTimestamp());
+
+async function close_camera() {
+  try {
+      console.log('inside close_camera');
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+     // Stop the stream to release the camera
+      stream.getTracks().forEach(track => track.stop());
+}
+catch(error){
+console.log("Error in close camera" + error);
+}
+}

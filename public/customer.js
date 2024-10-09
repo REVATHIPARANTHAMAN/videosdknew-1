@@ -53,8 +53,15 @@ if (URLParams.get("channel")) {
 
 // hang up
 
+//const hangUpButton = document.getElementById("hang_up_button");
+//hangUpButton.addEventListener("click", () => {
+ // webRTCHandler.handleHangUp();
+//});
 const hangUpButton = document.getElementById("hang_up_button");
 hangUpButton.addEventListener("click", () => {
+  socket.emit("userHangUp", () => {
+    console.log('customer Hang up button clicked.');
+  });
   webRTCHandler.handleHangUp();
 });
 
