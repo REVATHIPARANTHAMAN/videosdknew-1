@@ -166,6 +166,7 @@ connect_vc.addEventListener("click", () => {
     connect_vc.textContent = "Disconnect VC";
     connect_vc.dataset.status = "connected";
     document.querySelector("#status").textContent = "VC Connected";
+    window.parent.postMessage({ event: "connected_To_VC" }, '*');
     socket = io.connect("/" , {
       query: {
         manual: true
@@ -178,6 +179,7 @@ connect_vc.addEventListener("click", () => {
     connect_vc.textContent = "Connect VC";
     connect_vc.dataset.status = "disconnected";
     document.querySelector("#status").textContent = "VC Disconnected";
+    window.parent.postMessage({ event: "disconnected_To_VC" }, '*');
     socket.close();
     session.dispose();
   }
