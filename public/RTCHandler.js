@@ -79,6 +79,7 @@ const createPeerConnection = () => {
         getFormattedTimestamp();
         console.log("onConferenceEnd timestamp" + getFormattedTimestamp());
         ui.callNFI("onConferenceEnd");
+        window.parent.postMessage({ event: "onConferenceEnd" }, '*');
       } catch (ex) {
         console.log(ex);
       }
@@ -94,6 +95,7 @@ const createPeerConnection = () => {
         let hangup = document.getElementById("hang_up_button");
         hangup.disabled = false;
         ui.callNFI("onAccept");
+        window.parent.postMessage({ event: "onAccept" }, '*');
         getFormattedTimestamp();
         console.log("onConferenceStarted timestamp" + getFormattedTimestamp());
         ui.callNFI("onConferenceStarted");

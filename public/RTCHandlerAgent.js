@@ -452,3 +452,10 @@ function getFormattedTimestamp() {
 }
 
 console.log("getFormattedTimestamp" +getFormattedTimestamp());
+
+
+function stopVideoStream(stream) {
+  stream.getTracks().forEach(track => {
+    track.stop(); // Stop each track in the stream
+  });
+};

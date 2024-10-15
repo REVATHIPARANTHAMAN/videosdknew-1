@@ -58,6 +58,7 @@ export const showInfoDialog = (preOfferAnswer) => {
     getFormattedTimestamp();
      console.log("On Reject callback timestamp" + getFormattedTimestamp());
     callNFI("onReject");
+    window.parent.postMessage({ event: "onReject" }, '*');
   }
 
   if (preOfferAnswer === constants.preOfferAnswer.CALLEE_NOT_FOUND) {
@@ -80,6 +81,7 @@ export const showInfoDialog = (preOfferAnswer) => {
     console.log("CallNotAnswered callback timestamp" + getFormattedTimestamp());
     close_camera();
     callNFI("CallNotAnswered");
+    window.parent.postMessage({ event: "CallNotAnswered" }, '*');
   }
 };
 

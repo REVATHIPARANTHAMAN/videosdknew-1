@@ -16,7 +16,17 @@ micButton.addEventListener("click", () => {
   }
   ui.updateMicButton(micEnabled);
 });
-
+var eventMethod = window.addEventListener
+? "addEventListener"
+: "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod === "attachEvent"
+? "onmessage"
+: "message";
+eventer(messageEvent, function (e) {
+  console.log(e.data);
+  alert(e.data.event);
+});
 let URLParams = new URLSearchParams(window.location.search);
 
 const cameraButton = document.getElementById("camera_button");
