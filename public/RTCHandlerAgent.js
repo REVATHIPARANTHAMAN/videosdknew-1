@@ -459,3 +459,29 @@ function stopVideoStream(stream) {
     track.stop(); // Stop each track in the stream
   });
 };
+
+var eventMethod = window.addEventListener
+? "addEventListener"
+: "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod === "attachEvent"
+? "onmessage"
+: "message";
+eventer(messageEvent, function (e) {
+  console.log(e.data);
+  alert(e.data.event);
+  if(e.data.event = "Later"){
+    endCall();
+  }
+});
+
+function endCall(peerConnection, localStream) {
+  if (peerConnection) {
+    peerConnection.close(); // Close the WebRTC peer connection
+    peerConnection = null;
+  }
+  
+  if (localStream) {
+    stopVideoStream(localStream); // Stop the local media stream
+  }
+};
