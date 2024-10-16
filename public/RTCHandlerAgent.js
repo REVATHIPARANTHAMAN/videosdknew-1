@@ -454,37 +454,4 @@ function getFormattedTimestamp() {
 console.log("getFormattedTimestamp" +getFormattedTimestamp());
 
 
-function stopVideoStream(stream) {
-  stream.getTracks().forEach(track => {
-    track.stop(); // Stop each track in the stream
-  });
-};
 
-var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-var eventer = window[eventMethod];
-var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-eventer(messageEvent, function (e) {
-var value1 = e.data;
-alert(value1);
-console.log(value1);
-console.log("e.data.event");
-console.log(e.data.event);
-if(e.data.event = "Later"){
-  endCall();
-  alert("in end call");
-}
-
-}, false);  
-
-
-
-function endCall(peerConnection, localStream) {
-  if (peerConnection) {
-    peerConnection.close(); // Close the WebRTC peer connection
-    peerConnection = null;
-  }
-  
-  if (localStream) {
-    stopVideoStream(localStream); // Stop the local media stream
-  }
-};
