@@ -97,7 +97,7 @@ const createPeerConnection = () => {
         remoteUser: "",
         status: "disconnected"
       });
-
+      window.parent.postMessage({ event: "disconnected" }, '*');
       try {
         let hangup = document.getElementById("hang_up_button");
         hangup.style.display = "none";
@@ -460,20 +460,23 @@ function stopVideoStream(stream) {
   });
 };
 
-var eventMethod = window.addEventListener
-? "addEventListener"
-: "attachEvent";
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
 var eventer = window[eventMethod];
-var messageEvent = eventMethod === "attachEvent"
-? "onmessage"
-: "message";
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 eventer(messageEvent, function (e) {
-  console.log(e.data);
-  alert(e.data.event);
-  if(e.data.event = "Later"){
-    endCall();
-  }
-});
+var value1 = e.data;
+alert(value1);
+console.log(value1);
+console.log("e.data.event");
+console.log(e.data.event);
+if(e.data.event = "Later"){
+  endCall();
+  alert("in end call");
+}
+
+}, false);  
+
+
 
 function endCall(peerConnection, localStream) {
   if (peerConnection) {
