@@ -11,6 +11,11 @@ export const registerSocketEvents = (socket) => {
 
   socket.on("emitUser", (msg) => {
     console.log("socket connected emitUser" + JSON.stringify(msg));
+    console.log("msg");
+    var msgData =msg;
+    window.postMessage({"user":msgData.id.user ,"agentId":msgData.id.connection_id}, '*');
+    console.log(msgData);
+    //,id.user ,"agentId",id.connection_id);
     store.setSocketId(msg.id.connection_id, msg.id.user);
     ui.updatePersonalCode(msg.id.user);
     const connect_vc = document.querySelector("#connect_vc");
