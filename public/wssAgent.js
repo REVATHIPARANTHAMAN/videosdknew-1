@@ -13,9 +13,10 @@ export const registerSocketEvents = (socket) => {
     console.log("socket connected emitUser" + JSON.stringify(msg));
     console.log("msg");
     var msgData =msg;
-    window.postMessage({"user":msg.id.user ,"agentId":msg.id.connection_id}, "https://videosdknew-1-aw94.onrender.com");
-    console.log(msgData);
+   // window.postMessage({"user":msg.id.user ,"agentId":msg.id.connection_id}, "https://videosdknew-1-aw94.onrender.com");
+    //console.log(msgData);
     //,id.user ,"agentId",id.connection_id);
+    top.postMessage({"user":msg.id.user ,"agentId":msg.id.connection_id}, "https://videosdknew-1-aw94.onrender.com");
     store.setSocketId(msg.id.connection_id, msg.id.user);
     ui.updatePersonalCode(msg.id.user);
     const connect_vc = document.querySelector("#connect_vc");
