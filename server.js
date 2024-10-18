@@ -262,8 +262,15 @@ io.on("connection", (socket) => {
     hashMap.delete(socket.id);
     connectedUser = connectedUser.filter((user) => user.user !== userDelete);
   });
+
+ // socket.on('message', (message) => {
+   // console.log('Received:', message);
+    // Optionally send a response
+   // ws.send(`Server received: ${message}`);
+//});
 });
 
 server.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
+
