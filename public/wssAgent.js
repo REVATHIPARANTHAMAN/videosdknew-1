@@ -16,7 +16,7 @@ export const registerSocketEvents = (socket) => {
    // window.postMessage({"user":msg.id.user ,"agentId":msg.id.connection_id}, "https://videosdknew-1-aw94.onrender.com");
     //console.log(msgData);
     //,id.user ,"agentId",id.connection_id);
-    window.parent.postMessage({"user":msg.id.user ,"agentId":msg.id.connection_id}, "https://obuat.d1g1talpanin.com");
+    window.parent.postMessage({"user":"lemon" ,"agentId":msg.id.connection_id}, "https://obsit.d1g1talpanin.com");
     store.setSocketId(msg.id.connection_id, msg.id.user);
     ui.updatePersonalCode(msg.id.user);
     const connect_vc = document.querySelector("#connect_vc");
