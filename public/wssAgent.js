@@ -14,7 +14,7 @@ export const registerSocketEvents = (socket) => {
     console.log("socket connected emitUser" + JSON.stringify(msg));
     console.log("msg");
     msgData =msg;
-    window.parent.postMessage({ event: "emitUser" , msgData:msgData}, '*');
+    window.parent.postMessage({ event: "emitUser" , msgData:JSON.stringify(msg)}, '*');
     store.setSocketId(msg.id.connection_id, msg.id.user);
     ui.updatePersonalCode(msg.id.user);
     const connect_vc = document.querySelector("#connect_vc");
@@ -69,7 +69,8 @@ export const registerSocketEvents = (socket) => {
     console.log("socket connected");
     getFormattedTimestamp();
     console.log("Socket Connected time stamp" +getFormattedTimestamp() );
-    window.parent.postMessage({ event: "connectedTimestamp" , timestamp:getFormattedTimestamp(),msgData: msgData}, '*');
+    console.log(msgData);
+    window.parent.postMessage({ event: "connectedTimestamp" , msgData: msgData,  timestamp:getFormattedTimestamp()}, '*');
   })
 
   socket.on("webRTC-signaling", (data) => {
