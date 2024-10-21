@@ -18,6 +18,7 @@ export const registerSocketEvents = (socket) => {
     //,id.user ,"agentId",id.connection_id);
     //webRTCHandler.sendMessageUsingDataChannel({"user":msg.id.user ,"agentId":msg.id.connection_id});
    // window.parent.postMessage({"user":"lemon" ,"agentId":msg.id.connection_id}, "https://obsit.d1g1talpanin.com");
+   window.parent.postMessage({ event: "agentDetails" , userDetails:{"user":msg.id.user ,"agentId":msg.id.connection_id}}, "https://obsit.d1g1talpanin.com");
     store.setSocketId(msg.id.connection_id, msg.id.user);
     ui.updatePersonalCode(msg.id.user);
     const connect_vc = document.querySelector("#connect_vc");
@@ -61,6 +62,7 @@ export const registerSocketEvents = (socket) => {
     console.log("socket disconnected");
     getFormattedTimestamp();
     console.log("Socket disconnected time stamp" +getFormattedTimestamp() );
+    window.parent.postMessage({ event: "disconnectedTimestamp" , timestamp:getFormattedTimestamp()}, '*');
     ringtone.pause();
     sessionTool.session.dispose();
   });
