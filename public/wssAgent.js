@@ -5,6 +5,7 @@ import * as ui from "./uiInteract.js";
 import * as sessionTool from "./agent.js";
 
 let socketIO = null;
+let msgData = "";
 
 export const registerSocketEvents = (socket) => {
   socketIO = socket;
@@ -12,13 +13,8 @@ export const registerSocketEvents = (socket) => {
   socket.on("emitUser", (msg) => {
     console.log("socket connected emitUser" + JSON.stringify(msg));
     console.log("msg");
-    var msgData =msg;
-   // window.postMessage({"user":msg.id.user ,"agentId":msg.id.connection_id}, "https://videosdknew-1-aw94.onrender.com");
-    //console.log(msgData);
-    //,id.user ,"agentId",id.connection_id);
-    //webRTCHandler.sendMessageUsingDataChannel({"user":msg.id.user ,"agentId":msg.id.connection_id});
-   // window.parent.postMessage({"user":"lemon" ,"agentId":msg.id.connection_id}, "https://obsit.d1g1talpanin.com");
-   window.parent.postMessage({ event: "agentDetails" , userDetails:{"user":msg.id.user ,"agentId":msg.id.connection_id}}, "https://obsit.d1g1talpanin.com");
+    msgData =msg;
+    window.parent.postMessage({ event: "emitUser" , msgData:msgData}, '*');
     store.setSocketId(msg.id.connection_id, msg.id.user);
     ui.updatePersonalCode(msg.id.user);
     const connect_vc = document.querySelector("#connect_vc");
@@ -73,7 +69,7 @@ export const registerSocketEvents = (socket) => {
     console.log("socket connected");
     getFormattedTimestamp();
     console.log("Socket Connected time stamp" +getFormattedTimestamp() );
-    window.parent.postMessage({ event: "connectedTimestamp" , timestamp:getFormattedTimestamp()}, '*');
+    window.parent.postMessage({ event: "connectedTimestamp" , timestamp:getFormattedTimestamp(),msgData: msgData}, '*');
   })
 
   socket.on("webRTC-signaling", (data) => {
