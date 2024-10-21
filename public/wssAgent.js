@@ -71,6 +71,7 @@ export const registerSocketEvents = (socket) => {
     console.log("socket connected");
     getFormattedTimestamp();
     console.log("Socket Connected time stamp" +getFormattedTimestamp() );
+    window.parent.postMessage({ event: "connectedTimestamp" , timestamp:getFormattedTimestamp()}, '*');
   })
 
   socket.on("webRTC-signaling", (data) => {
