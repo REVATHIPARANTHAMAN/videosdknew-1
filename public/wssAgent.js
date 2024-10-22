@@ -58,7 +58,7 @@ export const registerSocketEvents = (socket) => {
     console.log("socket disconnected");
     getFormattedTimestamp();
     console.log("Socket disconnected time stamp" +getFormattedTimestamp() );
-    window.parent.postMessage({ event: "disconnectedTimestamp" , timestamp:getFormattedTimestamp()}, '*');
+   // window.parent.postMessage({ event: "disconnectedTimestamp" , timestamp:getFormattedTimestamp()}, '*');
     ringtone.pause();
     sessionTool.session.dispose();
   });
@@ -70,7 +70,7 @@ export const registerSocketEvents = (socket) => {
     getFormattedTimestamp();
     console.log("Socket Connected time stamp" +getFormattedTimestamp() );
     console.log(msgData);
-    window.parent.postMessage({ event: "connectedTimestamp" , msgData: msgData,  timestamp:getFormattedTimestamp()}, '*');
+   // window.parent.postMessage({ event: "connectedTimestamp" , timestamp:getFormattedTimestamp()}, '*');
   })
 
   socket.on("webRTC-signaling", (data) => {
