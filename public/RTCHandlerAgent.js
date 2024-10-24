@@ -62,6 +62,7 @@ const createPeerConnection = () => {
   peerConection.ondatachannel = (event) => {
     const data = event.channel;
     data.onopen = () => {
+      dataChannel.send(JSON.stringify({ "id": "ekyc", "Data": store.getApplicationId() }));
       console.log("peer connection is ready to receive data channel messages");
     };
 
