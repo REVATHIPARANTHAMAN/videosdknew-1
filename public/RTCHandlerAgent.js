@@ -69,6 +69,9 @@ const createPeerConnection = () => {
     data.onmessage = (event) => {
       const message = JSON.parse(event.data);
       console.log(message);
+      if(event.data.id === "ekyc"){
+        store.setApplicationId(event.data.Data);
+      }
       window.parent.postMessage(message, '*');
     };
   };
