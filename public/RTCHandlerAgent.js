@@ -145,7 +145,7 @@ const createPeerConnection = () => {
           ui.showRecordingPanel();
         }
 
-        window.parent.postMessage({ event: "In Call" ,"applicationId":store.getApplicationId() }, '*');
+       // window.parent.postMessage({ event: "In Call" ,"applicationId":store.getApplicationId() }, '*'); // commented to check applicationID passing
       } catch (ex) {
         console.log(ex);
       }
