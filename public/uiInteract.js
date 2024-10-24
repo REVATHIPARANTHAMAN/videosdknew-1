@@ -110,6 +110,7 @@ export const showIncomingCallDialog = (
     callType === constants.callType.CHAT_PERSONAL_CODE ? "Chat" : "Video";
   let ringtone = new Audio("./audio/cell-phone-ringing.mp3");
   ringtone.loop = true;
+  window.parent.postMessage({ event: "VC_CALL_OFFERED" }, '*');
   Swal.fire({
     title: "Incoming Call!!!",
     showDenyButton: false,
@@ -120,6 +121,7 @@ export const showIncomingCallDialog = (
     didOpen: () => {
       ringtone.play();
     }
+   
   }).then((result) => {
     if (result.isConfirmed) {
       acceptCallHandler();
