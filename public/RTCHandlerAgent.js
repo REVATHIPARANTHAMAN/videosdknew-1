@@ -129,8 +129,8 @@ const createPeerConnection = () => {
         socketId: state.socketId,
         remoteUser: state.remoteUser,
         status: "connected"
-        window.parent.postMessage({ event: "InCall" }, '*');
       });
+      window.parent.postMessage({ event: "InCall" }, '*');
       try {
         let hangup = document.getElementById("hang_up_button");
         hangup.style.display = "";
